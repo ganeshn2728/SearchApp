@@ -1,0 +1,3 @@
+export const GET_EQUALIZER = 'GET_EQUALIZER'
+export const GET_BANDS = 'GET_BANDS'
+export const SET_FREQUENCY = 'SET_FREQUENCY'
