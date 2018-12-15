@@ -23,7 +23,7 @@ const styles = {
 export class SearchContainer extends React.Component {
   constructor() {
     super()
-    this.state = { value: 50 }
+    this.state = { data: [], originalData: [] }
   }
 
   componentWillMount() {
@@ -31,9 +31,25 @@ export class SearchContainer extends React.Component {
   }
   
   componentWillReceiveProps (nextProps) {
-      console.log(nextProps.searchResults)
+      this.setState( {data : nextProps.searchResults, originalData: nextProps.searchResults })
   }
 
+  onFilterRequest = (selectRef) => {
+    let tempData = this.state.originalData
+    for (let key of Object.keys(selectRef)) {
+      tempData = tempData.filter((o) => {
+        const checkArr = key.split(',')
+        let objVal = ''
+        checkArr.map((obj, index) => {
+          objVal = (objVal === '') ? o[obj] : objVal[obj]
+        })
+        const checkVal = objVal
+        return (checkVal && (checkVal.toLowerCase().indexOf(typeof selectRef[key] === 'string' ? selectRef[key].toLowerCase() : selectRef[key]) !== -1))
+      })
+    }
+    this.setState({ data: tempData })
+  }
+  
   render() {
     const { classes, searchResults } = this.props
     return (
@@ -42,11 +58,12 @@ export class SearchContainer extends React.Component {
           <Grid item xs={12}>
             <SearchInput 
                 searchResults = {searchResults}
+                onFilterRequest = {this.onFilterRequest}
              />
           </Grid>
           <Grid item xs={12}>
             <SearchResults 
-                data = {searchResults}
+                data = {this.state.data}
             />
           </Grid>
         </Grid>

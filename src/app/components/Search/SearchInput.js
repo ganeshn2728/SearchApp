@@ -19,10 +19,11 @@ const styles = {
 export class SearchInput extends React.Component {
   constructor() {
     super()
-    this.state = { selectRef: '' }
+    this.state = { selectRef: [] }
   }
 
   readFilters = (colId, sugg) => {
+    console.log(colId, sugg)
     const { selectRef } = this.state
     if (sugg !== '') {
       selectRef[colId] = sugg
@@ -30,9 +31,7 @@ export class SearchInput extends React.Component {
       delete selectRef[colId]
     }
     this.setState({ selectRef })
-    console.log('selectRef')
-    console.log(selectRef)
-    //this.props.onFilterRequest(selectRef)
+    this.props.onFilterRequest(selectRef)
   }
 
   
