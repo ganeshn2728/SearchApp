@@ -50,6 +50,14 @@ export class SearchInput extends React.Component {
                 clearField="No"
                 id="loadUserName"
             />
+            <AutoComplete
+                suggestions={searchResults}
+                getSuggestionCallback={this.readFilters.bind(this)}
+                column_id="gender"
+                filter_name="Gender"
+                clearField="No"
+                id="loadUserName"
+            />
         </Paper>
       </div>)
   }
