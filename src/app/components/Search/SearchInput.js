@@ -12,7 +12,6 @@ const styles = {
     margin: 20,
     color: '#ccc',
   },
-  
 };
 
 
